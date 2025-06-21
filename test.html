@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stripe Test Payment</title>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <h2>Stripe Payment Demo</h2>
+  <form id="payment-form">
+    <div id="card-element"><!-- Stripe will inject card element here --></div>
+    <button type="submit" id="submit">Pay</button>
+  </form>
+  <div id="payment-result"></div>
+
+  <script>
+    const stripe = Stripe('pk_test_51ROKo2CWCqLDDhXMbb54Z3K7tuheWSOTRcEGMUBq8asjDLNLP7QXEDRd0GGivDfqbCj8Oa2ITnS4j8f0vuYIuIXH00FDdblg6P'); // Replace with your test key
+
+    const elements = stripe.elements();
+    const card = elements.create('card');
+    card.mount('#card-element');
+
+    const clientSecret = "pi_3ROKrsCWCqLDDhXM0Y0KpjMl_secret_BiZAMAHCVaKrukzQVezN0zqIn"; // Replace with your real client secret from backend
+
+    const form = document.getElementById('payment-form');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: 'Test User',
+          },
+        }
+      });
+
+      if (error) {
+        document.getElementById('payment-result').textContent = error.message;
+      } else if (paymentIntent.status === 'succeeded') {
+        document.getElementById('payment-result').textContent = 'Payment succeeded!';
+      }
+    });
+  </script>
+</body>
+</html>
