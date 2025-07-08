@@ -26,7 +26,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "https://osom-in-clone-frontend.vercel.app")
+@CrossOrigin(
+    origins = "https://osom-in-clone-frontend.vercel.app", // production origin
+    allowedOriginPatterns = {
+        "http://localhost:*", 
+        "http://127.0.0.1:*"
+    },
+    allowedHeaders = "*",
+    allowCredentials = "true"
+)
 @RequestMapping("/payment")
 @RestController
 public class PaymentController {
