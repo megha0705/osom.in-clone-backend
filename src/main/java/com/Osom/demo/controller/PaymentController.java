@@ -27,10 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(
-    origins = "https://osom-in-clone-frontend.vercel.app", // production origin
-    allowedOriginPatterns = {
-        "http://localhost:*", 
-        "http://127.0.0.1:*"
+    origins = {
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "http://127.0.0.1:3000",
+        "https://osom-in-clone-frontend.vercel.app"
     },
     allowedHeaders = "*",
     allowCredentials = "true"
