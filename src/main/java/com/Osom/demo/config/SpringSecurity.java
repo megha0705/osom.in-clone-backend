@@ -21,7 +21,7 @@ public class SpringSecurity {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
                         .requestMatchers( // Add all public endpoints here
-                                "/product/**", "/payment/**" , "/user/**", "/dashboard"// Allow any endpoint under /public
+                                "/product/**", "/payment/**" , "/user/**", "/oauth2/**", "/dashboard"// Allow any endpoint under /public
                         ).permitAll()// Other endpoints require authentication
                 )
                 .oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("/dashboard", false));
