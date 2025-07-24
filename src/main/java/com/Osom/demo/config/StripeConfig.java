@@ -8,15 +8,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StripeConfig {
-  public StripeConfig() {
-        String secretKey = System.getenv("STRIPE_SECRET_KEY");
+public static final String SECRET_KEY = "sk_test_51RoPMhFwEmUSrI9DczYViPpbABVGdTRTEx3GHYRhn96GsZVg9uYDcvusHXBQVASzKmdmaOTHUWt2y0JwjvlMCeE900dcTYYCSa";
 
-        if (secretKey == null || secretKey.isEmpty()) {
-            throw new RuntimeException("STRIPE_SECRET_KEY is not set in the environment.");
-        }
+    public StripeConfig(){
+       Stripe.apiKey = SECRET_KEY;
+   }
 
-        Stripe.apiKey = secretKey;
-    }
+
 
    public PaymentIntent createPaymentIntent(double amount , String currency)throws StripeException {
        PaymentIntentCreateParams params = PaymentIntentCreateParams.builder().setAmount((long)amount).setCurrency(currency).build();
